@@ -51,11 +51,30 @@ function pairCollision(height, spaceBetween, x){
     this.setX(x);
 }
 
-/*const collision = new pairCollision(450, 150, 100)
-document.querySelector('[wm-flappy]').appendChild(collision.element);
+function checkingOverlapping(elementA, elementB){
+    const a = elementA.getBoundingClientRect();
+    const b = elementB.getBoundingClientRect();
+    
+    // Verificando se eles estão colidindo horizontalmente
+    const cHor = a.left + a.width >= b.left && b.left + b.width >= a.left
+    const cVer = a.top + a.height >= b.top && b.top + b.height >= a.top;
 
-const collision2 = new pairCollision(450, 150, 200)
-document.querySelector('[wm-flappy]').appendChild(collision2.element);*/
+    return cHor && cVer;
+}
+
+function checkingCollision(bird, collisions){
+    let collided = false;
+    collisions.pairs.forEach(pairCollision => {
+        if(!collided){
+            const top = pairCollision.top.element;
+            const bottom = pairCollision.bottom.element;
+
+            collided = checkingOverlapping(bird.element, top) || checkingOverlapping(bird.element, bottom);
+        }
+    });
+
+    return collided;
+}
 
 function Collisions(height, width, spaceBetween, spaceCollision, notificationScore){
     // Função para reaproveitar e controlar as colisões
@@ -156,6 +175,15 @@ function FlappyBird(){
         const timer = setInterval(() => {
             collisions.animation();
             bird.animation();
+           
+            if(checkingCollision(bird, collisions)){
+                clearInterval(timer);
+
+                // Mandar uma mensagem no HTML para ver se o jogador quer mexer novamente.
+                if(confirm("Game Over! Want to play again?")){
+                    location.reload();
+                }
+            }
         }, 30);
     }
 }
