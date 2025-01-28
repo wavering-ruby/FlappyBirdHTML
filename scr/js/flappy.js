@@ -51,5 +51,48 @@ function pairCollision(height, spaceBetween, x){
     this.setX(x);
 }
 
-const b = new pairCollision(450, 200, 800);
-document.querySelector('[wm-flappy]').appendChild(b.element);
+/*const collision = new pairCollision(450, 150, 100)
+document.querySelector('[wm-flappy]').appendChild(collision.element);
+
+const collision2 = new pairCollision(450, 150, 200)
+document.querySelector('[wm-flappy]').appendChild(collision2.element);*/
+
+function Collisions(height, width, spaceBetween, spaceCollision, notificationScore){
+    // Função para reaproveitar e controlar as colisões
+
+    this.pairs = [
+        new pairCollision(height, spaceBetween, width),
+        new pairCollision(height, spaceBetween, width + spaceCollision),
+        new pairCollision(heigth, spaceBetween, width + spaceCollision * 2),
+        new pairCollision(heigth, spaceBetween, width + spaceCollision * 3)
+    ];
+
+    const deslocation = 5;
+
+    this.animation = () => {
+        this.pairs.forEach(pair => {
+            pair.setX(pair.getX() - deslocation);
+
+            // Para reutilizar uma barreira, a partir do momento que ela sair da tela,
+            // ela irá para o final da fila e terá seu espaço entre as colisões sorteadas novamente
+            //if(pair.getX() < -pair.getWidth()){
+            //    pair.setX(pair.getX() + spaceCollision * this.pairs.length);
+            //    pair.randomSpaceBetween();
+            //}
+
+            const middle = width / 2;
+            const passMiddle = pair.getX() + deslocation >= middle && pair.getX() < middle;
+
+            if(passMiddle){
+                notificationScore()
+            };
+        })
+    };
+}
+
+const collisions = new Collisions(450, 150, 50, 400, 0);
+const gameArea = document.querySelector('[wm-flappy]');
+collisions.pairs.forEach(pair => gameArea.appendChild(pairs.element));
+setInterval(() => {
+    collisions.animation();
+}, 20)

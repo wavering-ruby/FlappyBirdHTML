@@ -12,13 +12,13 @@
 [wm-flappy]{
     position: relative;
     border: 5px solid dodgerblue;
-    height: 450px;
-    width: 1200px;
+    height: 550px;
+    width: 1305px;
     margin: 15px;
     background-color: deepskyblue;
 
     /* Tudo o que tiver fora da div, ficará invísivel, essa parte é importantíssima para que os canos (the collision in green) não apareça passando pela tela */
-    overflow: hidden;
+    /*overflow: hidden;*/
 }
 
 .bird{
