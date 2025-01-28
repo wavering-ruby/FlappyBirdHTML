@@ -195,7 +195,7 @@ Manages the entire game logic, including the game loop, collision checks, and re
 ## How to Run
 1. Clone the repository or download the source code.
 2. Open the `index.html` file in a browser.
-3. Click to start the game and control the bird's movement.
+3. The game will automatically start and you can click to control the bird's movement (up and down).
 
 ## Customization
 - Adjust the spacing and difficulty by modifying the `spaceBetween` and `spaceCollision` parameters in the `FlappyBird` class.
