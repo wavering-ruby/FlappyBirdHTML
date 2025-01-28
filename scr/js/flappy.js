@@ -63,8 +63,8 @@ function Collisions(height, width, spaceBetween, spaceCollision, notificationSco
     this.pairs = [
         new pairCollision(height, spaceBetween, width),
         new pairCollision(height, spaceBetween, width + spaceCollision),
-        new pairCollision(heigth, spaceBetween, width + spaceCollision * 2),
-        new pairCollision(heigth, spaceBetween, width + spaceCollision * 3)
+        new pairCollision(height, spaceBetween, width + spaceCollision * 2),
+        new pairCollision(height, spaceBetween, width + spaceCollision * 3)
     ];
 
     const deslocation = 5;
@@ -75,24 +75,69 @@ function Collisions(height, width, spaceBetween, spaceCollision, notificationSco
 
             // Para reutilizar uma barreira, a partir do momento que ela sair da tela,
             // ela irá para o final da fila e terá seu espaço entre as colisões sorteadas novamente
-            //if(pair.getX() < -pair.getWidth()){
-            //    pair.setX(pair.getX() + spaceCollision * this.pairs.length);
-            //    pair.randomSpaceBetween();
-            //}
+            if(pair.getX() < -pair.getWidth()){
+                pair.setX(pair.getX() + spaceCollision * this.pairs.length);
+                pair.randomSpaceBetween();
+            }
 
             const middle = width / 2;
             const passMiddle = pair.getX() + deslocation >= middle && pair.getX() < middle;
 
             if(passMiddle){
-                notificationScore()
+                notificationScore();
             };
         })
     };
 }
 
-const collisions = new Collisions(450, 150, 50, 400, 0);
+function Bird(gameHeight, fallingY, flyingY){
+    let flying = false;
+    this.element = newElement('img', 'bird');
+    this.element.src = './scr/imgs/bird.png';
+
+    this.getY = () => parseInt(this.element.style.bottom.split('px')[0]);
+    this.setY = y => this.element.style.bottom = `${y}px`;
+
+
+    // Quando ele clicar ele irá setar o flying para true, mas depois, apenas vai se desfazer 
+    window.onclick = () => {
+        flying = true;
+        console.log("Flying: ", flying);
+
+        // Após um tempo, redefine para false se não houver outro clique
+        setTimeout(() => {
+            flying = false;
+        }, 200);
+    };
+
+    //window.onkeydown = e => flying = true;
+    //window.onkeyup = e => flying = false;
+
+    this.animation = () => {
+        const newY = this.getY() + (flying ? 8 : -5);
+        const maxHeight = gameHeight - this.element.clientHeight;
+
+        if(newY <= 0) {
+            this.setY(0);
+        } else if(newY >= maxHeight){
+            this.setY(maxHeight);
+        } else {
+            this.setY(newY);
+        }
+    }
+
+    this.setY(gameHeight / 2);
+}
+
+// Teste para colocar para ver as colisões se movendo
+const collisions = new Collisions(450, 200, 200, 400, 0);
+const bird = new Bird(450, -5, 8);
+
 const gameArea = document.querySelector('[wm-flappy]');
-collisions.pairs.forEach(pair => gameArea.appendChild(pairs.element));
+gameArea.appendChild(bird.element);
+
+collisions.pairs.forEach(pair => gameArea.appendChild(pair.element));
 setInterval(() => {
     collisions.animation();
-}, 20)
+    bird.animation();
+}, 30);
