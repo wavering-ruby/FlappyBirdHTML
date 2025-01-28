@@ -90,7 +90,7 @@ function Collisions(height, width, spaceBetween, spaceCollision, notificationSco
     };
 }
 
-function Bird(gameHeight, fallingY, flyingY){
+function Bird(gameHeight){
     let flying = false;
     this.element = newElement('img', 'bird');
     this.element.src = './scr/imgs/bird.png';
@@ -107,14 +107,11 @@ function Bird(gameHeight, fallingY, flyingY){
         // Após um tempo, redefine para false se não houver outro clique
         setTimeout(() => {
             flying = false;
-        }, 200);
+        }, 100);
     };
 
-    //window.onkeydown = e => flying = true;
-    //window.onkeyup = e => flying = false;
-
     this.animation = () => {
-        const newY = this.getY() + (flying ? 8 : -5);
+        const newY = this.getY() + (flying ? 10 : -5);
         const maxHeight = gameHeight - this.element.clientHeight;
 
         if(newY <= 0) {
@@ -129,15 +126,38 @@ function Bird(gameHeight, fallingY, flyingY){
     this.setY(gameHeight / 2);
 }
 
-// Teste para colocar para ver as colisões se movendo
-const collisions = new Collisions(450, 200, 200, 400, 0);
-const bird = new Bird(450, -5, 8);
+function Progress(){
+    this.element = newElement('span', 'progress');
+    this.updateScore = score => {
+        this.element.innerHTML = score;
+    }
 
-const gameArea = document.querySelector('[wm-flappy]');
-gameArea.appendChild(bird.element);
+    this.updateScore(0);
+}
 
-collisions.pairs.forEach(pair => gameArea.appendChild(pair.element));
-setInterval(() => {
-    collisions.animation();
-    bird.animation();
-}, 30);
+function FlappyBird(){
+    let score = 0;
+
+    const gameArea = document.querySelector('[wm-flappy]');
+    const height = gameArea.clientHeight;
+    const width = gameArea.clientWidth;
+
+    const progress = new Progress();
+    const collisions = new Collisions(height, width, 200, 400, () => progress.updateScore(++score));
+
+    const bird = new Bird(450, -5, 8);
+
+    gameArea.appendChild(bird.element);
+    gameArea.appendChild(progress.element);
+    collisions.pairs.forEach(pair => gameArea.appendChild(pair.element));
+
+    // Loop do jogo
+    this.start = () => {
+        const timer = setInterval(() => {
+            collisions.animation();
+            bird.animation();
+        }, 30);
+    }
+}
+
+new FlappyBird().start();

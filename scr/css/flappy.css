@@ -25,6 +25,10 @@
     position: absolute;
     width: 60px;
     left: calc(50% - 30px);
+
+    /* Impedindo que o jogador selecione o pássaro ao clicar */
+    user-select: none;
+    pointer-events: none;
 }
 
 .collision-pair{
@@ -63,4 +67,6 @@
     right: 10px;
     font-family: Pixel;
     font-size: 70px;
+    /* z-index serve para você definir as camadas */
+    z-index: 100;
 }
