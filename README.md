@@ -200,7 +200,3 @@ Manages the entire game logic, including the game loop, collision checks, and re
 ## Customization
 - Adjust the spacing and difficulty by modifying the `spaceBetween` and `spaceCollision` parameters in the `FlappyBird` class.
 - Update the bird's movement speed and gravity in the `Bird` class.
-
-## License
-<!--This project is open-source and available under the [MIT License](LICENSE).-->
-In construction.
