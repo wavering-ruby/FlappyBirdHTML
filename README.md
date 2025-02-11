@@ -2,12 +2,16 @@
 
 This project is a browser-based implementation of the classic Flappy Bird game. The code is written in JavaScript and includes features such as collision detection, scoring, and a game loop.
 
+---
+
 ## Features
 - Dynamic bird animation with gravity and user input for flying.
 - Randomly generated pipes with adjustable spacing and difficulty.
 - Collision detection between the bird and pipes.
 - Real-time score tracking and display.
 - Game over logic with an option to restart.
+
+---
 
 ## How It Works
 The game consists of the following main components:
@@ -21,6 +25,8 @@ function newElement(tagName, className) {
 }
 ```
 Creates a new HTML element with a specified tag and class.
+
+---
 
 ### 2. **`Collision` Class**
 ```javascript
@@ -37,6 +43,8 @@ function Collision(updown = false) {
 }
 ```
 Represents a single pipe (collision element). Handles dynamic height and orientation.
+
+---
 
 ### 3. **`pairCollision` Class**
 ```javascript
@@ -65,6 +73,8 @@ function pairCollision(height, spaceBetween, x) {
 ```
 Manages a pair of pipes (top and bottom) and their positioning.
 
+---
+
 ### 4. **`checkingOverlapping` Function**
 ```javascript
 function checkingOverlapping(elementA, elementB) {
@@ -78,6 +88,8 @@ function checkingOverlapping(elementA, elementB) {
 }
 ```
 Checks if two elements are overlapping, used for collision detection.
+
+---
 
 ### 5. **`Collisions` Class**
 ```javascript
@@ -112,6 +124,8 @@ function Collisions(height, width, spaceBetween, spaceCollision, notificationSco
 ```
 Handles all pipe pairs and their movement. Reuses pipes when they leave the screen.
 
+---
+
 ### 6. **`Bird` Class**
 ```javascript
 function Bird(gameHeight) {
@@ -145,6 +159,8 @@ function Bird(gameHeight) {
 ```
 Represents the bird and handles its animation and user input.
 
+---
+
 ### 7. **`Progress` Class**
 ```javascript
 function Progress() {
@@ -154,6 +170,8 @@ function Progress() {
 }
 ```
 Displays and updates the player's score.
+
+---
 
 ### 8. **`FlappyBird` Class**
 ```javascript
@@ -192,10 +210,14 @@ new FlappyBird().start();
 ```
 Manages the entire game logic, including the game loop, collision checks, and restarting the game.
 
+---
+
 ## How to Run
 1. Clone the repository or download the source code.
 2. Open the `index.html` file in a browser.
 3. The game will automatically start and you can click to control the bird's movement (up and down).
+
+---
 
 ## Customization
 - Adjust the spacing and difficulty by modifying the `spaceBetween` and `spaceCollision` parameters in the `FlappyBird` class.
