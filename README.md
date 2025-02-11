@@ -4,6 +4,22 @@ This project is a browser-based implementation of the classic Flappy Bird game. 
 
 ---
 
+## Summary
+
+├─ [Features](#features) <br>
+├─ [How It Works](#how-it-works) <br>
+│  ├─ [newElement Function](#newelement-function) <br>
+│  ├─ [Collision Class](#collision-class) <br>
+│  ├─ [pairCollision Class](#paircollision-class) <br>
+│  ├─ [checkingOverlapping Function](#checkingoverlapping-function) <br>
+│  ├─ [Collisions Class](#collisions-class) <br>
+│  ├─ [Bird Class](#bird-class) <br>
+│  ├─ [Progress Class](#progress-class) <br>
+│  └─ [FlappyBird Class](#flappybird-class) <br>
+├─ [How to Run](#how-to-run) <br>
+└─ [Customization](#customization) <br>
+
+
 ## Features
 - Dynamic bird animation with gravity and user input for flying.
 - Randomly generated pipes with adjustable spacing and difficulty.
